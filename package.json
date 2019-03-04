@@ -1,0 +1,22 @@
+{
+  "name": "bracketsproject",
+  "version": "1.0.0",
+  "description": "first commercial project",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MikeBashkatov/BracketsProject.git"
+  },
+  "author": "Mike",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MikeBashkatov/BracketsProject/issues"
+  },
+  "homepage": "https://github.com/MikeBashkatov/BracketsProject#readme",
+  "devDependencies": {
+    "electron": "^4.0.6"
+  }
+}
