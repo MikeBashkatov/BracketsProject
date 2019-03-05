@@ -6,5 +6,34 @@
 </head>
 <body>
     <h1>Brackets</h1>
+<ul>
+
+</ul>
 </body>
+<script>
+    const electron = require('electron');
+    const{ipcRenderer} = electron;
+
+    const ul = document.querySelector('ul');
+
+    //Add items
+    ipcRenderer.on('item:add',function (e, item) {
+        const li = document.createElement('li');
+        const itemText = document.createTextNode(item);
+        li.appendChild(itemText);
+        ul.appendChild(li);
+    });
+
+    //clear items
+    ipcRenderer.on('item:clear',function () {
+        ul.innerHTML = '';
+    });
+
+    //remove item
+    ul.addEventListener('dblclick',removeItem);
+
+    function removeItem(e){
+        e.target.remove();
+    }
+</script>
 </html>
