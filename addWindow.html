@@ -10,43 +10,44 @@
         <label>Enter Item</label>
         <input type="text" id="item" autofocus>
     </div>
-    <button type="submit">add item</button>
+    <button type="submit" id="submit">add item</button>
 </form>
 <script>
     const electron = require('electron');
     const{ipcRenderer} = electron;
+    //
+    // const form = document.querySelector('form');
+    // form.addEventListener('submit', submitForm);
+    //
+    // //append before prototype
+    //
+    // Element.prototype.appendBefore = function (element) {
+    //     element.parentNode.insertBefore(this, element);
+    // },false;
+    //
+    // //Append after prototype
+    //
+    // Element.prototype.appendAfter = function (element) {
+    //     element.parentNode.insertBefore(this, element.nextSibling);
+    // },false;
+    //
+    // // add item
+    // function submitForm(e){
+    //     e.preventDefault();
+    //     const item = document.querySelector('#item').value;
+    //     const span = document.createElement('span');
+    //     if(item == ''){
+    //         const itemElement = document.querySelector('#item')
+    //         span.textContent = 'Please enter name';
+    //         span.appendAfter(itemElement);
+    //         span.style.color = 'red';
+    //         span.style.fontSize = '10px';
+    //     }
+    //     else{
+    //         ipcRenderer.send('item:add', item);
+    //     }
+    // }
 
-    const form = document.querySelector('form');
-    form.addEventListener('submit', submitForm);
-
-    //append before prototype
-
-    Element.prototype.appendBefore = function (element) {
-        element.parentNode.insertBefore(this, element);
-    },false;
-
-    //Append after prototype
-
-    Element.prototype.appendAfter = function (element) {
-        element.parentNode.insertBefore(this, element.nextSibling);
-    },false;
-
-    // add item
-    function submitForm(e){
-        e.preventDefault();
-        const item = document.querySelector('#item').value;
-        const span = document.createElement('span');
-        if(item == ''){
-            const itemElement = document.querySelector('#item')
-            span.textContent = 'Please enter name';
-            span.appendAfter(itemElement);
-            span.style.color = 'red';
-            span.style.fontSize = '10px';
-        }
-        else{
-            ipcRenderer.send('item:add', item);
-        }
-    }
 </script>
 </body>
 </html>

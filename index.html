@@ -3,37 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <title>Armwrestling</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Brackets</h1>
-<ul>
+    <h1 contenteditable="true">Tournament name here</h1>
+    <h3>create weight classes</h3>
+    <div id="main">
+        <div class="weightClass"><input type="text" class="weight" placeholder="150-175"><i class="fas fa-times-circle"></i></div>
+        <button id="addWeightClass">Add weight class</button>
+    </div>
+    <button id="start">Start Adding participants</button>
 
-</ul>
+    <select id="weightList">
+        <option value="Select weight class" selected="selected" disabled>Select weight class</option>
+    </select>
 </body>
 <script>
     const electron = require('electron');
     const{ipcRenderer} = electron;
 
-    const ul = document.querySelector('ul');
-
-    //Add items
-    ipcRenderer.on('item:add',function (e, item) {
-        const li = document.createElement('li');
-        const itemText = document.createTextNode(item);
-        li.appendChild(itemText);
-        ul.appendChild(li);
-    });
-
-    //clear items
-    ipcRenderer.on('item:clear',function () {
-        ul.innerHTML = '';
-    });
-
-    //remove item
-    ul.addEventListener('dblclick',removeItem);
-
-    function removeItem(e){
-        e.target.remove();
+    function $(item){
+        let id = document.getElementById(item);
+        return id;
     }
+
+
+    let addButton = $("addWeightClass");
+    const regEx = /^\d{3}-\d{3}$/;
+    const errorMsg = 'Please enter weight classes according to the example: 150-175 . Thank you';
+
+    addButton.onclick =  function(){
+
+        let itemClass = document.getElementsByClassName("weightClass");
+        let item = itemClass[itemClass.length - 1 ]; // get the last element of array ItemClass
+
+        let clone = item.cloneNode(true); // making a clone OF WHOLE DIV (not just input)
+
+        let child = clone.querySelector('.weightClass > .weight'); // taking input with our class name from a div with a class name
+
+
+        if(child.value.match(regEx)){
+            child.value = null; // cleaning value and text content of clonning element (so they have clean input value)
+            child.textContent = '';
+            item.parentNode.insertBefore(clone, item.nextSibling); // inserting cloned element after the last added element
+
+            clone.addEventListener("click",function(e) {
+                // e.target was the clicked element
+                if (e.target.nodeName == "I") {
+                    e.target.parentNode.remove();
+                }
+            });
+        }
+
+        else{
+            alert(errorMsg);
+        }
+
+
+    }
+
+    let startButton = $("start");
+
+    startButton.onclick = function(){
+        let select = $('weightList');
+        let inputs = document.getElementsByClassName("weight");
+
+        // removing ALL options so we can insert new ones
+        for(let i = select.options.length - 1 ; i > 0 ; i--)
+        {
+            select.options.remove(i);
+        }
+
+        // Inserting new options from input elements
+        for (let i = 0; i < inputs.length; i++) {
+
+            let itemText = inputs[i].value;
+
+            if(itemText.match(regEx)){  // check that all fields are filled with content
+                let option = document.createElement('option');
+                option.textContent = itemText;
+                option.value = itemText;
+                option.id = itemText;
+
+                select.appendChild(option);
+
+                alert(`Class ${option.value} added successfully`);
+            }
+            else {
+                alert(errorMsg);
+                break;
+            }
+        }
+    }
+
+
+    // const ul = document.querySelector('ul');
+    //
+    // //Add items
+    // ipcRenderer.on('item:add',function (e, item) {
+    //     const li = document.createElement('li');
+    //     const itemText = document.createTextNode(item);
+    //     li.appendChild(itemText);
+    //     ul.appendChild(li);
+    // });
+    //
+    // //clear items
+    // ipcRenderer.on('item:clear',function () {
+    //     ul.innerHTML = '';
+    // });
+    //
+    // //remove item
+    // ul.addEventListener('dblclick',removeItem);
+    //
+    // function removeItem(e){
+    //     e.target.remove();
+    // }
 </script>
 </html>

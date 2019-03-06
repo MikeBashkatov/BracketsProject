@@ -1,0 +1,31 @@
+h1{
+    text-align: center;
+}
+
+h3{
+    text-align: center;
+}
+
+#main{
+    margin: 50px auto;
+    width: fit-content;
+}
+
+#start{
+    margin: 0 auto;
+    display: block;
+    padding: 20px;
+}
+
+.weightClass{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.weight{
+    margin-right: 10px;
+}
+
+#addWeightClass{
+    float: right;
+}

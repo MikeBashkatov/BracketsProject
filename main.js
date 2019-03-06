@@ -11,7 +11,13 @@ let addWindow;
 
 app.on('ready',function(){
     //create new window
-    mainWindow = new BrowserWindow({});
+    mainWindow = new BrowserWindow({show: false});
+    // make window full screen
+    mainWindow.maximize();
+    //shows content of a window only after it is downloaded
+    mainWindow.once('ready-to-show', () => {
+        mainWindow.show()
+    })
     //Load HTML file
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
@@ -31,33 +37,49 @@ app.on('ready',function(){
 //Handle create add window
 function createAddWindow(){
 
-    //create new window
-    addWindow = new BrowserWindow({
-        width: 500,
-        height: 400,
-        title:'Add example here'
-    });
-    //Load HTML file
-    addWindow.loadURL(url.format({
+        // //create new window
+        // addWindow = new BrowserWindow({
+        //     width: 500,
+        //     height: 400,
+        //     title:'Add example here'
+        // });
+        // //Load HTML file
+        // addWindow.loadURL(url.format({
+        //     pathname: path.join(__dirname, 'addWindow.html'),
+        //     protocol: 'file',
+        //     slashes: true
+        // }));
+        // //Garbage collection handle
+        // addWindow.on('close',function () {
+        //     addWindow = null;
+        // })
+        //
+        // //DELETE MENU FROM WINDOW
+        // addWindow.setMenu(null);
+    let childWindow = new BrowserWindow({parent: mainWindow})
+    childWindow.maximize();
+    //shows content of a window only after it is downloaded
+    childWindow.once('ready-to-show', () => {
+        childWindow.show()
+    })
+
+    childWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'addWindow.html'),
         protocol: 'file',
         slashes: true
     }));
-    //Garbage collection handle
-    addWindow.on('close',function () {
-        addWindow = null;
-    })
 
-    //DELETE MENU FROM WINDOW
-    addWindow.setMenu(null);
+    childWindow.on('close',function () {
+        childWindow = null;
+    })
 }
 
 //Catch item add
 
-ipcMain.on('item:add',function (e,item) {
-    mainWindow.webContents.send('item:add',item);
-    //addWindow.close();
-})
+// ipcMain.on('item:add',function (e,item) {
+// //     mainWindow.webContents.send('item:add',item);
+// //     //addWindow.close();
+// // })
 //create menu template
 
 const mainMenuTemplate = [
