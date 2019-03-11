@@ -10,14 +10,21 @@
     <h1 contenteditable="true">Tournament name here</h1>
     <h3>create weight classes</h3>
     <div id="main">
-        <div class="weightClass"><input type="text" class="weight" placeholder="150-175"><i class="fas fa-times-circle"></i></div>
         <button id="addWeightClass">Add weight class</button>
-    </div>
-    <button id="start">Start Adding participants</button>
 
-    <select id="weightList">
-        <option value="Select weight class" selected="selected" disabled>Select weight class</option>
-    </select>
+        <div class="weightClass"><input type="text" class="weight" placeholder="150-175"><i class="fas fa-times-circle"></i></div>
+
+        <button id="start">Start Adding participants</button>
+    </div>
+
+    <div id="page-2" class="hiddenDiv">
+        <select id="weightList">
+            <option value="Select weight class" selected="selected" disabled>Select weight class</option>
+        </select>
+        <button id="addParticipants">Add another participant</button>
+        </div>
+    <button id="back">Back</button>
+    <button id="StartTournament">GET READY FOR THE RUMBLE!</button>
 </body>
 <script>
     const electron = require('electron');
@@ -59,8 +66,6 @@
         else{
             alert(errorMsg);
         }
-
-
     }
 
     let startButton = $("start");
@@ -88,14 +93,108 @@
 
                 select.appendChild(option);
 
-                alert(`Class ${option.value} added successfully`);
+                //alert(`Class ${option.value} added successfully`);  - for checking purposes
+
+                // creating inner div with inputs + assigning them IDs same as text in options for identification
+                let innerDiv = document.createElement('DIV');
+                innerDiv.id = itemText;
+                innerDiv.className = 'hiddenDiv';
+
+                let participantDiv = document.createElement('DIV');
+                participantDiv.className = 'participants';
+
+                let createFirstNameInput = document.createElement('input');
+                createFirstNameInput.placeholder = 'First Name';
+                createFirstNameInput.className = 'participantInfo';
+
+                let createLastNameInput = document.createElement('input');
+                createLastNameInput.placeholder = 'Last Name';
+                createLastNameInput.className = 'participantInfo';
+
+                let createCityInput = document.createElement('input');
+                createCityInput.placeholder = 'City';
+                createCityInput.className = 'participantInfo';
+
+                let createProvinceInput = document.createElement('input');
+                createProvinceInput.placeholder = 'Province';
+                createProvinceInput.className = 'participantInfo';
+
+                let deleteElement = document.createElement('I');
+                deleteElement.className = 'fas fa-times-circle';
+
+                let main = $('page-2');
+                main.appendChild(innerDiv);
+                innerDiv.appendChild(participantDiv);
+                participantDiv.append(createFirstNameInput, createLastNameInput, createCityInput, createProvinceInput, deleteElement);
+
             }
             else {
                 alert(errorMsg);
                 break;
             }
-        }
+        } // END OF FOR LOOP
+
+        $('main').className = 'hiddenDiv';
+        $('page-2').className = 'showDiv';
     }
+
+    // BACK button funtionality
+
+    let backButton = $('back');
+
+    backButton.onclick = function(){
+        $('main').className = 'showDiv';
+        $('page-2').className = 'hiddenDiv';
+    }
+
+
+
+    let hiddenDivs = document.getElementsByClassName('hiddenDiv');
+    let select = $('weightList');
+
+    function selectChange(){
+
+        let selectedOptionIndex = select.options[select.selectedIndex]; // get an index of selected option
+
+                for (let index = 0; index < hiddenDivs.length; index++){
+                if(hiddenDivs[index].id == selectedOptionIndex.id ){
+                    let selectedDiv = hiddenDivs[index];
+                    selectedDiv.classList.add('showDiv');
+                }
+                else{
+                    hiddenDivs[index].classList.remove('showDiv');
+                }
+            }
+    } // selectChange FUNCTION END
+
+    select.onchange = selectChange;
+
+    // Adding more participants to weightclass
+
+    let addParticipants = $("addParticipants");
+    addParticipants.onclick =  function(){
+
+                let participantsInfo = document.querySelectorAll(".showDiv > .participants"); // getting the direct children of a showDiv class and ADD participants ONLY to that div
+                let lastParticipant = participantsInfo[participantsInfo.length - 1 ]; // get the last element of array participantsInfo
+
+                let clone = lastParticipant.cloneNode(true); // making a clone OF WHOLE DIV (not just input)
+
+                let child = clone.querySelectorAll('.participants > .participantInfo'); // taking ALL inputs with our class name from a div with a class name
+
+                for(let i = 0; i < child.length; i++){
+                    child[i].value = null; // cleaning values and text content of cloning element (so they have clean inputs value)
+                    child[i].textContent = '';
+                }
+                lastParticipant.parentNode.insertBefore(clone, lastParticipant.nextSibling); // inserting cloned element after the last added element
+
+                clone.addEventListener("click",function(e) {
+                    // e.target was the clicked element
+                    if (e.target.nodeName == "I") {
+                        e.target.parentNode.remove();
+                    }
+                });
+    } // END addParticipants FUNCTION
+
 
 
     // const ul = document.querySelector('ul');

@@ -6,12 +6,7 @@ h3{
     text-align: center;
 }
 
-#main{
-    margin: 50px auto;
-    width: fit-content;
-}
-
-#start{
+#start, #StartTournament{
     margin: 0 auto;
     display: block;
     padding: 20px;
@@ -27,5 +22,25 @@ h3{
 }
 
 #addWeightClass{
-    float: right;
+    margin-bottom: 20px;
+}
+
+#page-2, #main{
+    text-align: center;
+    margin: 50px auto;
+    width: fit-content;
+}
+
+.hiddenDiv{
+    display: none;
+}
+
+.showDiv{
+    display: block;
+}
+
+#back{
+    position: absolute;
+    top: 40px;
+    left: 40px;
 }
