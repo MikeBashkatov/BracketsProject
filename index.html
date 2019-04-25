@@ -3,12 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Armwrestling</title>
-    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script> <!-- allow eletron to work with third party libraries -->
-    <script src="jquery-1.11.3.min.js"></script>
-    <script src="jquery.bracket.min.js"></script>
-    <script src="BracketScript.js"></script>
-    <script src="mainScript.js"></script>
-    <script>if (window.module) module = window.module;</script><!-- allow eletron to work with third party libraries -->
     <link href="jquery.bracket.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -35,10 +29,17 @@
     <button id="back">Back</button>
 
     <button id="StartTournament">GET READY FOR THE RUMBLE!</button>
+    <div id="bracketStartsHere">
     <select id="bracketsList">
         <option value="Select weight bracket" selected="selected" disabled>Select weight class</option>
     </select>
-
+    </div>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script> <!-- allow eletron to work with third party libraries -->
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="jquery.bracket.min.js"></script>
+    <script src="mainScript.js"></script>
+    <script src="BracketScript.js"></script>
+    <script>if (window.module) module = window.module;</script><!-- allow eletron to work with third party libraries -->
 </body>
 
 </html>

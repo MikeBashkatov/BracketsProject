@@ -70,7 +70,7 @@ window.onload = function(){
 
                     select.appendChild(option);
 
-                    //alert(`Class ${option.value} added successfully`);  - for checking purposes
+                     // alert(`Class ${option.value} added successfully`); // - for checking purposes
                     let flag = false;
                     for (let i = 0; i < main.childNodes.length; i++){ // take children inside PAGE-2 and check for duplicates in divs ID's (if div already there we don't need to create extra one)
                         if (main.childNodes[i].id == itemText) {
@@ -190,88 +190,6 @@ window.onload = function(){
             };
         });
     }; // END addParticipants FUNCTION
-
-
-    // Creating select box to choose weight class bracket!
-
-    let buildBrackets = $('StartTournament');
-
-    // creating brackets accordign to the weighclasses
-
-    function buildBracket(){
-        let select = $('bracketsList');
-        let bracketMain = document.createElement('DIV');
-        select.parentNode.insertBefore(bracketMain, select.nextSibling); //inserting main Brackets DIV right after the Brackets Select
-
-        let inputs = document.getElementsByClassName('weight');
-
-        // CHECKING IF WE HAVE AT LEAST ONE WEIGHT cLASS ENTERED
-
-        if(inputs.length >= 1 && inputs[0].value !== ""){
-
-
-            // removing ALL options so we can insert new ones
-            for(let i = select.options.length - 1 ; i > 0 ; i--)
-            {
-                select.options.remove(i);
-            }
-
-            // Inserting new options from input elements
-            for (let i = 0; i < inputs.length; i++) {
-
-                let itemText = inputs[i].value;
-
-                    let option = document.createElement('option');
-                    option.textContent = itemText;
-                    option.value = itemText;
-                    option.id = itemText;
-
-                    select.appendChild(option);
-
-            }
-            //insert brackets into newely created divs
-            let options = select.options.item;
-            for(let i = select.options.length - 1 ; i > 0 ; i--)
-            {
-                let itemText = options[i].text;
-
-                let bracketInner = document.createElement('DIV');
-                bracketInner.classList = itemText;
-                bracketMain.appendChild(bracketInner);
-
-
-                var bigData = {
-                    teams : [
-                        ["Team 1",  "Team 2" ],
-                        ["Team 3",  "Team 4" ],
-                        ["Team 5",  "Team 6" ],
-                        ["Team 7",  "Team 8" ],
-                        ["Team 9",  "Team 10"],
-                        ["Team 11", "Team 12"],
-                        ["Team 13", "Team 14"],
-                        ["Team 15", "Team 16"]
-                    ],
-                    results : [[[[]]], [], []] // minimal array to initialize DE bracket
-                }
-
-                $(function() { $(`${itemText}`).bracket(
-                    {
-                        init: bigData,
-                        save: function(){},
-                        disableToolbar: true,
-                        disableTeamEdit: true,
-                        skipConsolationRound: true,
-                        centerConnectors: true
-                    }
-                )
-                })
-            }
-        }
-    }
-
-    buildBrackets.onclick = buildBracket;
-
-
 
 
 
