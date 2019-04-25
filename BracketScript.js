@@ -3,6 +3,7 @@ let bracketInner; // DIV element where we store our bracket that has a class equ
 let itemOption; // variable that stores weigh class value retrieved from Options of a select box
 let select = document.getElementById('bracketsList'); // variable that stores select box of hide-show brackets
 
+
 buildBrackets.addEventListener("click", brackets);
 
 select.addEventListener("change", showBrakets);
@@ -83,5 +84,16 @@ function brackets(){
 }
 
 function showBrakets(){
-    
+    let hiddenDivs = document.querySelectorAll('.BracketsVisual > .hiddenDiv'); // get all divs with class Hidden from a parent div of Brackets
+    let selectedOptionIndex = select.options[select.selectedIndex]; // get an index of selected option
+
+    for (let index = 0; index < hiddenDivs.length; index++){
+        if(hiddenDivs[index].classList.item(0) == selectedOptionIndex.id ){
+            let selectedDiv = hiddenDivs[index];
+            selectedDiv.classList.add('showDiv');
+        }
+        else{
+            hiddenDivs[index].classList.remove('showDiv');
+        }
+    }
 }
