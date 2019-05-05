@@ -82,7 +82,7 @@ window.onload = function(){
                     // creating inner div with inputs + assigning them IDs same as text in options for identification
                     let innerDiv = document.createElement('DIV');
                     innerDiv.id = itemText;
-                    innerDiv.className = 'hiddenDiv';
+                    innerDiv.classList.add('hiddenDiv', 'p'+`${i}`);
 
                     let participantDiv = document.createElement('DIV');
                     participantDiv.className = 'participants';

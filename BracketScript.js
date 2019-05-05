@@ -9,9 +9,18 @@ buildBrackets.addEventListener("click", brackets);
 select.addEventListener("change", showBrakets);
 
 function brackets(){
-
-    // creating brackets accordign to the weighclasses
-
+    let hugeData = [];
+    let smallData = [];
+    let fNamelName = '';
+    let hiddenDivs = document.querySelectorAll('#page-2 > .hiddenDiv').length; // get the number of hidden divs on page2
+    let partisipantName;// contains all info about participants in a div #i
+    for (let i = 0; i < hiddenDivs; i++){
+        partisipantName = document.querySelectorAll(`.p${i} > .participants`);
+        for(let i = 0; i <= partisipantName.length; i++){
+            fNamelName = partisipantName[i].childNodes[0].nodeValue + ' ' + partisipantName[i].childNodes[1].nodeValue;
+            smallData.push(fNamelName);
+        }
+    }
 
     let bracketMain = document.createElement('DIV');
     bracketMain.classList.add('BracketsVisual')
@@ -80,6 +89,8 @@ function brackets(){
                 )
             })
         }
+
+
     }
 }
 
