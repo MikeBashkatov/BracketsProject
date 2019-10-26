@@ -5,12 +5,17 @@ let itemOption; // variable that stores weigh class value retrieved from Options
 let select = document.getElementById('bracketsList'); // variable that stores select box of hide-show brackets
 let selectElimType = document.getElementById('StartBrackets');
 let eliminationType;
+let numberOfBrackets; // according to the type, if someone choose tripple elimination we will create 3 single elimination brackets.
 
 buildBrackets.addEventListener("click", brackets);
 
 selectElimType.addEventListener("click",  pick_elimination);
 
 select.addEventListener("change", showBrakets);
+
+$('#innerModal button').on("click", () => {
+    $('.modal').removeClass('active');
+})
 
 function pick_elimination(){
     let selectedElimType = $("#PickElimination").val();
@@ -24,7 +29,8 @@ function pick_elimination(){
         eliminationType = [];
     }
     else{
-        alert("Please select elimination type");
+        $('#innerModal > p').text('Please select elimination type');
+        $('.modal').addClass('active');
     }
 }
 

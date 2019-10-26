@@ -7,6 +7,8 @@ window.onload = function(){
     }
 
 
+    
+
     let addButton = $("addWeightClass");
     const regEx = /^\d{3}-\d{3}$/;
     const errorMsg = 'Please enter weight classes according to the example: 150-175 . Thank you';
@@ -35,7 +37,9 @@ window.onload = function(){
         }
 
         else{
-            alert(errorMsg);
+            $('modalText').textContent =  errorMsg;
+            let modal = document.querySelectorAll('.modal');
+            modal[0].classList.add('active');
         }
     }
 
@@ -70,7 +74,6 @@ window.onload = function(){
 
                     select.appendChild(option);
 
-                     // alert(`Class ${option.value} added successfully`); // - for checking purposes
                     let flag = false;
                     for (let i = 0; i < main.childNodes.length; i++){ // take children inside PAGE-2 and check for duplicates in divs ID's (if div already there we don't need to create extra one)
                         if (main.childNodes[i].id == itemText) {
@@ -119,8 +122,10 @@ window.onload = function(){
                     }
                 }
                 else {
-                        alert(errorMsg);
-                        break;
+                    $('modalText').textContent =  errorMsg;
+                    let modal = document.querySelectorAll('.modal');
+                    modal[0].classList.add('active');
+                    break;
                     }
 
             }// END OF FOR LOOP
@@ -130,18 +135,49 @@ window.onload = function(){
             $('page-2').className = 'showDiv';
         }
         else{
-            alert("Please enter at least one weight class");
+            $('modalText').textContent =  "Please enter at least one weight class";
+            let modal = document.querySelectorAll('.modal');
+            modal[0].classList.add('active');
         }
     }
 
-// BACK button funtionality
+// button show content funtionality
 
     let backButton = $('back');
+    let pickEliminationType = $('StartBrackets');
+    let readyForTheRumble = $('StartTournament');
+
+    document.querySelectorAll('innerModal > button').onclick = () => {
+        $('modal').classList.remove('active');
+    }
 
     backButton.onclick = function(){
-        $('main').className = 'showDiv';
-        $('page-2').className = 'hiddenDiv';
+        if($('page-2').classList.contains('showDiv')){
+            $('main').className = 'showDiv';
+            $('page-2').className = 'hiddenDiv';
+        }
+        else if($('main').classList.contains('showDiv')){
+            $('page-0').className = 'showDiv';
+            $('main').className = 'hiddenDiv';
+            backButton.className = 'hiddenDiv';
+        }
     }
+
+    pickEliminationType.onclick = () =>{
+        let selectBox = document.getElementById("PickElimination");
+        var strUser = selectBox.options[selectBox.selectedIndex].text;
+        if(strUser != 'Select elimination type'){
+            $('main').className = 'showDiv';
+            backButton.className = 'showDiv';
+            $('page-0').className = 'hiddenDiv';
+        }
+    };
+
+    readyForTheRumble.onclick = () => {
+        bracketStartsHere.className = 'showDiv';
+        $('page-2').className = 'hiddenDiv';
+        backButton.className = 'hiddenDiv';
+    };
 
 
 

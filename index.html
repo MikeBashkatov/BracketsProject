@@ -10,6 +10,7 @@
 
 </head>
 <body>
+        <h1 contenteditable="true">Tournament name here</h1>
 <div id="page-0">
     <select id="PickElimination">
         <option value="Select elimination type" selected="selected" disabled>Select elimination type</option>
@@ -19,9 +20,9 @@
     </select>
     <button id="StartBrackets">Choose your destiny!</button>
 </div>
-    <h1 contenteditable="true">Tournament name here</h1>
-    <h3>create weight classes</h3>
-    <div id="main">
+
+    <div id="main" class="hiddenDiv">
+            <h3>create weight classes</h3>
         <button id="addWeightClass">Add weight class</button>
 
         <div class="weightClass"><input type="text" class="weight" placeholder="150-175"><i class="fas fa-times-circle"></i></div>
@@ -34,15 +35,21 @@
                 <option value="Select weight class" selected="selected" disabled>Select weight class</option>
             </select>
             <button id="addParticipants">Add another participant</button>
+            <button id="StartTournament">GET READY FOR THE RUMBLE!</button>
         </div>
-    <button id="back">Back</button>
+    <button id="back" class="hiddenDiv">Back</button>
 
-    <button id="StartTournament">GET READY FOR THE RUMBLE!</button>
-    <div id="bracketStartsHere">
+    <div id="bracketStartsHere" class="hiddenDiv">
     <select id="bracketsList">
         <option value="Select weight bracket" selected="selected" disabled>Select weight class</option>
     </select>
     </div>
+    <section class="modal">
+        <div id="innerModal">
+            <p id="modalText"></p>
+            <button>OK</button>
+        </div>
+    </section>
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script> <!-- allow eletron to work with third party libraries -->
     <script src="jquery-1.11.3.min.js"></script>
     <script src="jquery.bracket.min.js"></script>
